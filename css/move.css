@@ -1,0 +1,30 @@
+.perso{
+	position: absolute;
+	background-color: red;
+	height: 60px;
+	width: 30px;
+	top:0;
+	left:0;
+	background: url(../asset/perso_move.png) -3px -6px no-repeat;
+    background-size: 397px 496px;
+    z-index:1000;
+}
+
+.move-right{
+	background: url(../asset/perso_move.png) -364px -435px no-repeat;
+	background-size: 397px 496px;
+	animation: play-right .9s steps(9) infinite;
+}
+.move-left{
+	background: url(../asset/perso_move.png) -2px -312px no-repeat;
+	background-size: 397px 496px;
+	animation: play-left .9s steps(9) infinite;
+}
+
+@keyframes play-right {
+   100% { background-position: -3px -435px; }
+}
+
+@keyframes play-left {
+   100% { background-position: -363px -312px; }
+}

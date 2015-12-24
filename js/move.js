@@ -19,27 +19,32 @@ $(document).ready(function(){
 	        if (!keys.hasOwnProperty(i)) continue;
 	        //move donw
 	        if(i == 40){
-				top = parseInt($(".square").css('top').split("p")[0]);
-		        top = top + 2;
-		        $(".square").css('top',top+"px");
+				top = parseInt($(".perso").css('top').split("p")[0]);
+		        top = top + 30;
+		        $(".perso").css('top',top+"px");
 	        }
 	        //move up
 	        if(i == 38){
-	        	top = parseInt($(".square").css('top').split("p")[0]);
-		        top = top - 2;
-		        $(".square").css('top',top);
+	        	top = parseInt($(".perso").css('top').split("p")[0]);
+		        top = top - 30;
+		        $(".perso").css('top',top);
 	        }
 	        //move right
 	        if(i == 39){
-	        	left = parseInt($(".square").css('left').split("p")[0]);
-		        left = left + 2;
-		        $(".square").css('left',left);
+	        	left = parseInt($(".perso").css('left').split("p")[0]);
+		        left = left + 30;
+		        $(".perso").css('left',left);
+		        $(".perso").removeClass("move-left");
+		        $(".perso").addClass("move-right");
+		        
 	        }
 	        //move left
 	        if(i == 37){
-	        	left = parseInt($(".square").css('left').split("p")[0]);
-		        left = left - 2;
-		        $(".square").css('left',left);
+	        	left = parseInt($(".perso").css('left').split("p")[0]);
+		        left = left - 30;
+		        $(".perso").css('left',left);
+		       	$(".perso").removeClass("move-right");
+		        $(".perso").addClass("move-left");
 	        }
 
 	    }
