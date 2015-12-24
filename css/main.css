@@ -1,0 +1,20 @@
+.square{
+	position: absolute;
+	background-color: red;
+	height: 30px;
+	width: 30px;
+	top:0;
+	left:0;
+}
+
+.square-field{
+	position: absolute;
+	background-color: green;
+	height: 30px;
+	width: 30px;
+}
+
+#bodyMap{
+	height:1500px;
+	width:5000px;
+}
