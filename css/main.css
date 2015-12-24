@@ -1,10 +1,12 @@
 .square{
 	position: absolute;
 	background-color: red;
-	height: 30px;
+	height: 60px;
 	width: 30px;
 	top:0;
 	left:0;
+	background: url(../asset/perso_move.png) -3px -6px no-repeat;
+    background-size: 397px 496px;
 }
 
 .square-field{
