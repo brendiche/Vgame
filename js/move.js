@@ -1,12 +1,17 @@
-$(document).ready(function(){
+$(document).on("mapCreated",function(event,data){
 	var direction = "";
 	var keys_down = {};
 	var top = 0;
 	var left = 0;
 	var interval ={};
 	var movementSpeed = 50;
+	var map = data.map;
+	
+	
+	gravity();
 
-	// Managerment of the keyboard press
+
+	/*Managerment of the keyboard press*/
 	$(document).keydown(function (e) {
 		if(!(keys_down[e.which] == true)){
 	    	keys_down[e.which] = true;
@@ -22,10 +27,11 @@ $(document).ready(function(){
 	$(document).keyup(function (e) {
 		/* Stop movement thread */
 		clearInterval(interval);
-
 	    lookPerso(e.which);
 	    delete keys_down[e.which];
 	});
+
+
 
 	/*FUNCTION FOR MOVING*/
 
@@ -36,7 +42,7 @@ $(document).ready(function(){
 			movePerso();
 		},movementSpeed)
 	}
-
+	/* Looking left and right */
 	function lookPerso(key){
 		if(key == 39){
 			direction = "right"
@@ -54,6 +60,7 @@ $(document).ready(function(){
 		}
 	}
 
+	/* Moving the perso */
 	function movePerso(){
 		for (var i in keys_down) {
 	        if (!keys_down.hasOwnProperty(i)) continue;
@@ -78,7 +85,7 @@ $(document).ready(function(){
 	    }
 	}
 
-
+	/* Jumping */
 	function jump(){
 		top = parseInt($(".perso").css('top').split("p")[0]);
 		top = top - 30;
@@ -87,6 +94,16 @@ $(document).ready(function(){
 			top = parseInt($(".perso").css('top').split("p")[0]);
 			top = top + 30;
 			$(".perso").css('top',top+"px");
+		},150);
+	}
+
+	 // Function to put the perso on the dirt 
+	function gravity(){
+		setInterval(function(){
+			if(map[Math.trunc(left/30)][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
+				top += 30;
+				$(".perso").css('top',top);
+			}
 		},100);
 	}
 });

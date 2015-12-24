@@ -1,19 +1,19 @@
 var MIN_HEIGHT = 5;
 var MAX_HEIGHT = 1;
-
+var event = new Event('mapCreated');
 $(document).ready(function() {
 	var mapHeight = $("#bodyMap").height();
 	var mapWidth = $("#bodyMap").width();
+	// -4 pour les case en bas
 	MAX_HEIGHT = (mapHeight / 30) - 4;
 	console.log(mapWidth + "x" + mapHeight);
 	var squared = [];
-
-	//showUnavailableSpot();
-
+	//on fait une boucle pour parcourir(de case en case) toute les colones 
 	for (var i = 0; i < mapWidth; i += 30) {
 		var lineSquare = [];
+		//on fait une boucle pour parcourir(de case en case) toute les lignes		
 		for (var j = 0; j < mapHeight; j += 30) {
-			lineSquare.push(j / 30);
+			lineSquare.push({type : "BOLCK_AIR"});
 		};
 		squared.push(lineSquare);
 	};
@@ -24,13 +24,13 @@ $(document).ready(function() {
 	if (start < MIN_HEIGHT)
 		start = MIN_HEIGHT;
 
-	console.log(squared);
 
 	for (var i = 0; i < squared.length; i++) {
 		populateGroundColumn(i, squared, start);
 		start = generateNewIndex(start);
 	};
-
+	console.log(squared);
+	$(document).trigger("mapCreated",{map:squared});
 });
 
 
@@ -55,6 +55,7 @@ function populateGroundColumn(column, squared, height) {
 		if (i > 45)
 			$("#bodyMap").append("<div class='square-field' style='background-color:blue;top:" + top + "px;left:" + left + "px'></div>");
 		else
+			squared[column][i].type = "BLOCK_DIRT";
 			$("#bodyMap").append("<div class='square-field' style='top:" + top + "px;left:" + left + "px'></div>");
 	};
 }
