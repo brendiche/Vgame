@@ -4,7 +4,7 @@
 	height: 60px;
 	width: 30px;
 	top:0;
-	left:0;
+	left:1px;
 	background: url(../asset/perso_move.png) -3px -6px no-repeat;
     background-size: 397px 496px;
     z-index:1000;

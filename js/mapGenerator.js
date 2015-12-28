@@ -60,6 +60,6 @@ function populateGroundColumn(column, squared, height) {
 			$("#bodyMap").append("<div class='square-field' style='background-color:blue;top:" + top + "px;left:" + left + "px'></div>");
 		else
 			squared[column][i].type = "BLOCK_DIRT";
-			$("#bodyMap").append("<div class='square-field' style='top:" + top + "px;left:" + left + "px'></div>");
+			$("#bodyMap").append("<div class='square-field' style='top:" + top + "px;left:" + left + "px'>"+left/30+","+top/30+"</div>");
 	};
 }
