@@ -8,6 +8,7 @@ $(document).ready(function() {
 	MAX_HEIGHT = (mapHeight / 30) - 4;
 	console.log(mapWidth + "x" + mapHeight);
 	var squared = [];
+
 	//on fait une boucle pour parcourir(de case en case) toute les colones 
 	for (var i = 0; i < mapWidth; i += 30) {
 		var lineSquare = [];
@@ -18,8 +19,9 @@ $(document).ready(function() {
 		squared.push(lineSquare);
 	};
 
-
+	// calculate the bigining of the first dirt bolock column
 	var start = Math.floor(Math.random() * (squared[0].length - MIN_HEIGHT)) + 1;
+
 
 	if (start < MIN_HEIGHT)
 		start = MIN_HEIGHT;
@@ -30,11 +32,13 @@ $(document).ready(function() {
 		start = generateNewIndex(start);
 	};
 	console.log(squared);
+
+	// tirriger the event of the map created and the map as a param
 	$(document).trigger("mapCreated",{map:squared});
 });
 
 
-function generateNewIndex(index, min, max) {
+function generateNewIndex(index) {
 	var direction = Math.floor(Math.random() * 10) % 3;
 
 	if (direction == 0 && index < MAX_HEIGHT) {

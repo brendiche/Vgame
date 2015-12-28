@@ -4,7 +4,7 @@ $(document).on("mapCreated",function(event,data){
 	var top = 0;
 	var left = 0;
 	var interval ={};
-	var movementSpeed = 50;
+	var movementSpeed = 100;
 	var map = data.map;
 	
 	
@@ -68,18 +68,24 @@ $(document).on("mapCreated",function(event,data){
 	        if(i == 39){
 	        	left = parseInt($(".perso").css('left').split("p")[0]);
 		        left = left + 5;
-		        $(".perso").css('left',left);
-		        $(".perso").removeClass("move-left");
-		        $(".perso").addClass("move-right");
+
+		        if(map[Math.trunc(left/30)+1][Math.trunc(top/30)+1].type === "BOLCK_AIR"){
+			        $(".perso").css('left',left);
+			        $(".perso").removeClass("move-left");
+			        $(".perso").addClass("move-right");
+		        }
+
 		        
 	        }
 	        //move left
 	        if(i == 37){
 	        	left = parseInt($(".perso").css('left').split("p")[0]);
 		        left = left - 5;
-		        $(".perso").css('left',left);
-		       	$(".perso").removeClass("move-right");
-		        $(".perso").addClass("move-left");
+		        if(map[Math.trunc(left/30)][Math.trunc(top/30)+1].type === "BOLCK_AIR"){
+			        $(".perso").css('left',left);
+			       	$(".perso").removeClass("move-right");
+			        $(".perso").addClass("move-left");
+			    }
 	        }
 
 	    }
@@ -91,9 +97,11 @@ $(document).on("mapCreated",function(event,data){
 		top = top - 30;
 		$(".perso").css('top',top+"px");
 		setTimeout(function(){
-			top = parseInt($(".perso").css('top').split("p")[0]);
-			top = top + 30;
-			$(".perso").css('top',top+"px");
+			if(map[Math.trunc(left/30)][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
+				top = parseInt($(".perso").css('top').split("p")[0]);
+				top = top + 30;
+				$(".perso").css('top',top+"px");
+			}
 		},150);
 	}
 
@@ -104,6 +112,6 @@ $(document).on("mapCreated",function(event,data){
 				top += 30;
 				$(".perso").css('top',top);
 			}
-		},100);
+		},170);
 	}
 });
