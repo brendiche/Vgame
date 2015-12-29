@@ -4,7 +4,7 @@ $(document).on("mapCreated",function(event,data){
 	var top = 0;
 	var left = 0;
 	var movingThread =false;
-	var movementSpeed = 60;
+	var movementSpeed = 20;
 	var map = data.map;
 	
 	
@@ -22,13 +22,22 @@ $(document).on("mapCreated",function(event,data){
 		if(e.which == 38){
 			jump(direction);
 		}
+
+		//FOR THE DEBUG
+		if(e.which == 17 ){
+			console.log("left : "+left,"top : "+top);
+			console.log("left/30 : "+Math.trunc(left/30),"top/30 : "+(Math.trunc(top/30)+1));
+			console.log("left%30 : "+left%30,"top%30 : "+top%30);
+		}
 	});
 
 	$(document).keyup(function (e) {
 		/* Stop movement thread */
-		clearInterval(movingThread);
-		movingThread = false;
-	    lookPerso(e.which);
+		if(e.which != 38){
+			clearInterval(movingThread);
+			movingThread = false;
+	    	lookPerso(e.which);
+		}
 	    delete keys_down[e.which];
 	});
 
@@ -41,6 +50,7 @@ $(document).on("mapCreated",function(event,data){
 		lookPerso(key);
 
 		if(movingThread){
+			// console.info("J'ai un gros chibre")
 			clearInterval(movingThread);
 			movingThread = false;
 		}
@@ -82,8 +92,10 @@ $(document).on("mapCreated",function(event,data){
 			        $(".perso").addClass("move-right");
 		        }
 		        // if the perso should fall
-		        if(map[Math.floor(left/30)][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
-		        	gravity()
+		        if(left%30 === 0){
+			        if(map[Math.floor(left/30)][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
+			        	gravity()
+			        }
 		        }
 	        }
 	        //move left
@@ -97,8 +109,10 @@ $(document).on("mapCreated",function(event,data){
 			        $(".perso").addClass("move-left");
 			    }
 			    // if the perso should fall
-		        if(map[Math.floor(left/30)+1][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
-		        	gravity()
+		        if(left%30 === 0){
+			        if(map[Math.floor(left/30)][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
+			        	gravity()
+			        }
 		        }
 	        }
 
@@ -106,25 +120,40 @@ $(document).on("mapCreated",function(event,data){
 	}
 
 	/* Jumping */
-	function jump(direction){
+	function jump(direction){		
 		top = parseInt($(".perso").css('top').split("p")[0]);
 		top = top - 30;
 		$(".perso").css('top',top+"px");
+
+
 		setTimeout(function(){
-			if(direction === 'left'){
-				if(map[Math.trunc(left/30)][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
-					top = parseInt($(".perso").css('top').split("p")[0]);
-					top = top + 30;
-					$(".perso").css('top',top+"px");
-				}
-			}else{
-				if(map[Math.trunc(left/30)+1][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
-					top = parseInt($(".perso").css('top').split("p")[0]);
-					top = top + 30;
-					$(".perso").css('top',top+"px");
+
+			//si on se déplace à droite 
+			if(direction == "right"){
+				//lorqu'on saute si on dépasse un peu sur la case d'après faut vérifier le block de la case d'après
+				if(left%30 === 0){
+					if(map[Math.trunc(left/30)][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
+						top = parseInt($(".perso").css('top').split("p")[0]);
+						top = top + 30;
+						$(".perso").css('top',top+"px");
+					}
+				}else{
+					// console.log('bite');
+					// console.log(map[Math.trunc(left/30)+1][Math.trunc(top/30)+2]);
+					if(map[Math.trunc(left/30)+1][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
+						top = parseInt($(".perso").css('top').split("p")[0]);
+						top = top + 30;
+						$(".perso").css('top',top+"px");
+					}					
 				}
 			}
-		},150);
+
+			// if(map[Math.trunc(left/30)][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
+			// 	top = parseInt($(".perso").css('top').split("p")[0]);
+			// 	top = top + 30;
+			// 	$(".perso").css('top',top+"px");
+			// }
+		},200);
 	}
 
 	 // Function to put the perso on the dirt 
