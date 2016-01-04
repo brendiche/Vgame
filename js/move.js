@@ -138,8 +138,6 @@ $(document).on("mapCreated",function(event,data){
 						$(".perso").css('top',top+"px");
 					}
 				}else{
-					// console.log('bite');
-					// console.log(map[Math.trunc(left/30)+1][Math.trunc(top/30)+2]);
 					if(map[Math.trunc(left/30)+1][Math.trunc(top/30)+2].type === "BOLCK_AIR"){
 						top = parseInt($(".perso").css('top').split("p")[0]);
 						top = top + 30;
